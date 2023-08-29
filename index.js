@@ -3,13 +3,9 @@ const {engine} = require('express-handlebars')
 const app = express()
 const port = process.env.PORT || 3000
 
-const fortunes = [
-    'Conquer your fears or they will conquer you',
-    'Rivers need springs',
-    'Do not fear what you don"t know',
-    'You will have a pleasant suprise',
-    'Whenever possible, keep it simple'
-]
+const fortune = require('./lib/fortune')
+
+
 
 app.engine('handlebars', engine())
 
@@ -39,8 +35,8 @@ app.get('/', (req, res) => {
 //     })
 
 app.get('/about', (req, res) => {
-    const randomFortune = fortunes[Math.floor(Math.random()*fortunes.length)]
-    res.render('about', { fortune: randomFortune })
+    
+    res.render('about', { fortune: fortune.getFortune() })
 })
 
 // app.get('/about/directions', (req, res) => {
